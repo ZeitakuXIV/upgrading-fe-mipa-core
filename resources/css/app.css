@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Frontend Learning Custom Styles
+  Di sini kamu bisa tambah custom CSS kalau diperlukan
+  Tapi sebaiknya gunakan Tailwind classes sebanyak mungkin!
+*/
+
+/* Custom component classes untuk learning */
+@layer components {
+  /* Card component example */
+  .learning-card {
+    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200;
+  }
+
+  /* Responsive grid helper class */
+  .responsive-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+  }
+
+  /* Button variations */
+  .btn-primary-custom {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200;
+  }
+}
