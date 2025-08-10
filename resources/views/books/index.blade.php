@@ -1,278 +1,529 @@
+{{--
+    📚 HALAMAN BUKU - IMPLEMENTASI REFERENSI LENGKAP DENGAN ANNOTATIONS
+
+    rujukan: 07-Blade Templating.md (Sistem pewarisan Laravel Blade - direktif extends memungkinkan view anak mewarisi struktur layout dasar)
+    PENJELASAN: Direktif extends memberitahu Laravel untuk menggunakan layout app.blade.php sebagai template induk. Ini menerapkan prinsip DRY dengan menggunakan kembali struktur HTML umum seperti navigasi, footer, dan elemen head di beberapa halaman. Konten anak akan dimasukkan ke bagian yield('content') dari layout induk.
+--}}
 @extends('layouts.app')
 
-@section('title', 'Books Collection')
+{{--
+    rujukan: 07-Blade Templating.md (Direktif section untuk mendefinisikan blok konten - direktif section mendefinisikan blok konten bernama yang dapat di-yield di layout induk)
+    PENJELASAN: Bagian title akan dimasukkan ke yield('title') di layout, memungkinkan judul halaman dinamis sambil mempertahankan struktur HTML yang konsisten. Ini sangat penting untuk SEO dan judul tab browser.
+--}}
+@section('title', 'Koleksi Buku - Referensi dengan Styling')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
-    <div class="container mx-auto px-4 py-8">
-         Page Header
-        <div class="mb-12">
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                <div>
-                    <h1 class="text-3xl lg:text-4xl font-light text-gray-800 mb-3">
-                        Books Collection
-                    </h1>
-                    <p class="text-gray-600 font-light">
-                        A curated library of knowledge and stories
-                    </p>
-                </div>
+<!--
+    📚 HALAMAN BUKU
 
-                 Action Buttons
-                <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('books.create') }}" class="btn bg-gray-800 hover:bg-gray-700 text-white border-none font-normal">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                        Add Book
-                    </a>
+    rujukan: 09-First View Page.md (Implementasi halaman responsif lengkap - halaman ini mendemonstrasikan prinsip desain responsif mobile-first dengan struktur HTML semantik yang tepat)
+    PENJELASAN: Ini adalah implementasi referensi RESPONSIF PENUH yang harus dipelajari mahasiswa untuk memahami pola pengembangan frontend profesional. Setiap elemen dibuat dengan hati-hati untuk tujuan pembelajaran, menunjukkan cara membangun antarmuka modern, dapat diakses, dan ramah mobile.
 
-                    <div class="dropdown dropdown-end">
-                        <div tabindex="0" role="button" class="btn bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 font-normal">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
-                            </svg>
-                            Filter
-                        </div>
-                        <ul tabindex="0" class="dropdown-content menu bg-white rounded-lg z-[1] w-52 p-2 shadow-lg border border-gray-100">
-                            <li><a class="text-gray-700 hover:bg-gray-50 rounded-md">All Books</a></li>
-                            <li><a class="text-gray-700 hover:bg-gray-50 rounded-md">By Author</a></li>
-                            <li><a class="text-gray-700 hover:bg-gray-50 rounded-md">By Genre</a></li>
-                            <li><a class="text-gray-700 hover:bg-gray-50 rounded-md">By Year</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    🎯 RANGKUMAN PEMBELAJARAN UTAMA:
+
+    📱 RESPONSIF DESIGN (Mobile-First):
+    - Mobile (< 768px): 1 kolom, text kecil, padding kompak
+    - Tablet (768px+): 2 kolom, layout seimbang
+    - Desktop (1024px+): 3-4 kolom, tipografi besar, spacing luas
+
+    🎨 TAILWIND CSS + DAISYUI:
+    - Utility-first approach dengan kelas seperti grid-cols-1, md:grid-cols-2, lg:grid-cols-3
+    - Komponen DaisyUI: card, stat, badge, alert, modal, btn
+    - Sistem warna semantik: primary, secondary, accent, base-content
+
+    🔧 LARAVEL BLADE INTEGRATION:
+    - Template inheritance: extends, section, yield
+    - Data flow: Controller → Collection → View
+    - Loops: foreach untuk menampilkan data dinamis
+    - Output aman: (double kurung kurawal) untuk mencegah XSS
+
+    📊 COLLECTION METHODS:
+    - count(): Menghitung total items
+    - pluck(): Mengekstrak field tertentu
+    - unique(): Menghapus duplikat
+    - max(): Mencari nilai maksimum
+
+    ⚡ JAVASCRIPT INTERACTIVITY:
+    - DOM manipulation untuk modal
+    - Event listeners untuk responsive feedback
+    - Console logging untuk debugging
+    - Real-time breakpoint detection
+
+    BREAKDOWN DESAIN RESPONSIF:
+    rujukan: 04-responsive-with-tailwind.md (Metodologi responsif mobile-first - mulai dengan style dasar mobile lalu tingkatkan secara progresif untuk layar yang lebih besar)
+    PENJELASAN:
+    1. Bagian Header: Tipografi skala dari text-2xl mobile ke text-4xl desktop, layout flex berubah dari kolom ke baris
+    2. Grid Statistik: Berkembang dari 1 kolom mobile ke 2 kolom tablet ke 4 kolom desktop menggunakan CSS Grid
+    3. Grid Buku: Pola responsif canggih - 1 kolom mobile, 2 kolom tablet, 3 kolom desktop, 4 kolom desktop besar
+    4. Komponen Kartu: Padding adaptif, penskalaan tipografi, efek hover, dan interaksi ramah sentuh
+
+    TUJUAN PEMBELAJARAN:
+    - Menguasai prinsip desain responsif mobile-first
+    - Memahami pola CSS Grid responsif
+    - Mempelajari penggunaan pustaka komponen DaisyUI
+    - Mengimplementasikan pola antarmuka pengguna profesional
+    - Berlatih sintaks templating Laravel Blade
+-->
+
+<!-- Header Halaman dengan Tipografi Responsif -->
+<!--
+    rujukan: 04-responsive-with-tailwind.md (Dasar-dasar container dan spacing responsif - kelas container menyediakan batasan max-width responsif)
+    PENJELASAN: Pola container mx-auto memusatkan konten secara horizontal dan menyediakan max-width responsif pada berbagai breakpoint. px-4 py-8 memberikan padding konsisten yang bekerja di semua ukuran layar. Ini adalah pola layout fundamental dalam pengembangan web modern.
+-->
+<div class="mb-8">
+    <!--
+        rujukan: 06-UI Component (DaisyUI).md (Pola layout flexbox responsif - flex-col menumpuk item secara vertikal di mobile, lg:flex-row mengatur secara horizontal di desktop)
+        PENJELASAN: Ini mendemonstrasikan desain responsif mobile-first. Default flex-col membuat tumpukan vertikal yang cocok untuk layar mobile sempit. Pada breakpoint lg (1024px+), berubah ke layout flex-row horizontal dengan spacing dan alignment yang tepat untuk tampilan desktop.
+    -->
+    <h1 class="text-2xl lg:text-4xl font-bold text-base-content mb-2">
+        <!--
+            rujukan: 04-responsive-with-tailwind.md (Penskalaan tipografi responsif - kelas ukuran teks yang beradaptasi dengan ukuran layar)
+            PENJELASAN: text-2xl di mobile memberikan ukuran yang dapat dibaca tanpa membebani layar kecil. lg:text-4xl meningkat secara dramatis di desktop di mana ruang layar memungkinkan tipografi yang lebih besar dan berdampak. Ini menciptakan hierarki visual yang bekerja di berbagai perangkat.
+        -->
+        📚 Koleksi Buku
+    </h1>
+
+    <!--
+        rujukan: 06-UI Component (DaisyUI).md (Sistem warna semantik DaisyUI - base-content menyediakan warna teks yang sadar tema)
+        PENJELASAN: text-base-content/70 menggunakan sistem warna semantik DaisyUI dengan opacity 70%. Ini secara otomatis beradaptasi dengan tema terang/gelap dan memastikan rasio kontras yang tepat. Opacity menciptakan hierarki visual sambil mempertahankan standar aksesibilitas.
+    -->
+    <p class="text-sm lg:text-lg text-base-content/70 mb-4">
+        <span class="badge badge-success badge-sm mr-2">✅ REFERENSI DENGAN STYLING</span>
+        Ini adalah contoh yang sepenuhnya responsif. Pelajari pola implementasinya!
+    </p>
+
+    <!-- Alert Catatan Pembelajaran -->
+    <!--
+        rujukan: 06-UI Component (DaisyUI).md (Komponen Alert untuk pesan informasional - menyediakan styling konsisten untuk notifikasi pengguna)
+        PENJELASAN: Komponen alert DaisyUI memberikan makna semantik melalui kode warna dan perlakuan visual yang konsisten. Varian alert-info menggunakan styling biru untuk menunjukkan konten informasional yang membantu pengguna memahami antarmuka.
+    -->
+    <div class="alert alert-info mb-6">
+        <i class="fas fa-lightbulb"></i>
+        <div>
+            <h3 class="font-bold">Catatan Pembelajaran untuk Mahasiswa:</h3>
+            <ul class="text-sm mt-2 space-y-1">
+                <li>• <strong>Pendekatan mobile-first:</strong> Kelas dasar menargetkan mobile, kelas dengan prefix meningkatkan untuk layar lebih besar</li>
+                <li>• <strong>Grid responsif:</strong> <code>grid-cols-1 md:grid-cols-2 lg:grid-cols-3</code> menciptakan progres kolom 1→2→3</li>
+                <li>• <strong>Penskalaan tipografi:</strong> <code>text-sm lg:text-lg</code> memastikan keterbacaan di semua ukuran perangkat</li>
+                <li>• <strong>Progres spacing:</strong> <code>p-4 lg:p-6</code> memberikan spacing lebih murah hati di layar yang lebih besar</li>
+            </ul>
         </div>
-
-         Statistics Cards
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-500 mb-1">Total Books</p>
-                        <p class="text-2xl font-light text-gray-800">{{ $books->count() }}</p>
-                        <p class="text-xs text-gray-400 mt-1">In collection</p>
-                    </div>
-                    <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-500 mb-1">Authors</p>
-                        <p class="text-2xl font-light text-gray-800">{{ $books->pluck('author')->unique()->count() }}</p>
-                        <p class="text-xs text-gray-400 mt-1">Unique writers</p>
-                    </div>
-                    <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-500 mb-1">Genres</p>
-                        <p class="text-2xl font-light text-gray-800">{{ $books->pluck('genre')->unique()->count() }}</p>
-                        <p class="text-xs text-gray-400 mt-1">Categories</p>
-                    </div>
-                    <div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-500 mb-1">Latest Year</p>
-                        <p class="text-2xl font-light text-gray-800">{{ $books->max('publication_year') ?? 'N/A' }}</p>
-                        <p class="text-xs text-gray-400 mt-1">Most recent</p>
-                    </div>
-                    <div class="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        @if($books->count() > 0)
-             Books Grid
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                @foreach($books as $book)
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group overflow-hidden">
-                         Book Cover/Icon
-                        <div class="p-6 pb-4">
-                            <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center mb-4 group-hover:from-gray-200 group-hover:to-gray-300 transition-all duration-300">
-                                <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                </svg>
-                            </div>
-
-                             Title and Genre
-                            <div class="mb-4">
-                                <h3 class="font-medium text-gray-800 text-lg mb-2 line-clamp-2 group-hover:text-gray-900 transition-colors">
-                                    {{ $book->title }}
-                                </h3>
-
-                                @if($book->genre)
-                                    <span class="inline-block px-3 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">
-                                        {{ $book->genre }}
-                                    </span>
-                                @endif
-                            </div>
-
-                             Author
-                            <div class="flex items-center gap-2 mb-2">
-                                <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                                <span class="text-sm text-gray-600 font-medium">{{ $book->author }}</span>
-                            </div>
-
-                             Publication Year
-                            @if($book->publication_year)
-                                <div class="flex items-center gap-2 mb-4">
-                                    <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                    </svg>
-                                    <span class="text-sm text-gray-500">{{ $book->publication_year }}</span>
-                                </div>
-                            @endif
-
-                             Description
-                            @if($book->description)
-                                <p class="text-sm text-gray-600 line-clamp-3 mb-4 leading-relaxed">
-                                    {{ $book->description }}
-                                </p>
-                            @endif
-                        </div>
-
-                         Card Actions
-                        <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
-                            <span class="text-xs text-gray-500 font-medium">
-                                {{ $book->added_by ?? 'Unknown' }}
-                            </span>
-
-                            <div class="flex gap-2">
-                                <a href="{{ route('books.show', $book->id) }}" class="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                    </svg>
-                                </a>
-
-                                <a href="{{ route('books.edit', $book->id) }}" class="p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-all duration-200">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                    </svg>
-                                </a>
-
-                                <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this book?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                        </svg>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-             Pagination
-            @if(method_exists($books, 'links'))
-                <div class="mt-12 flex justify-center">
-                    <div class="bg-white rounded-lg border border-gray-200 p-1">
-                        {{ $books->links() }}
-                    </div>
-                </div>
-            @endif
-
-        @else
-             Empty State
-            <div class="text-center py-20">
-                <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
-                </div>
-
-                <h3 class="text-xl font-light text-gray-800 mb-3">Your library awaits</h3>
-                <p class="text-gray-600 mb-8 max-w-md mx-auto leading-relaxed">
-                    Start building your personal collection of books. Every great library begins with a single book.
-                </p>
-
-                <a href="{{ route('books.create') }}" class="inline-flex items-center px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors duration-200">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"></path>
-                    </svg>
-                    Add Your First Book
-                </a>
-            </div>
-        @endif
     </div>
 </div>
 
- Success/Error Messages
-@if(session('success'))
-    <div class="fixed top-4 right-4 z-50">
-        <div class="bg-white border border-green-200 text-green-800 px-4 py-3 rounded-lg shadow-lg flex items-center gap-3">
-            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <span class="font-medium">{{ session('success') }}</span>
+<!-- Kartu Statistik - Grid Responsif Canggih -->
+<!--
+    rujukan: 04-responsive-with-tailwind.md (Peningkatan grid responsif progresif - mendemonstrasikan progres grid kolom 1→2→4)
+    PENJELASAN: Pola grid ini menampilkan desain responsif canggih. Dimulai dengan grid-cols-1 untuk mobile memastikan keterbacaan di layar kecil. md:grid-cols-2 pada 768px+ menciptakan layout seimbang untuk tablet. lg:grid-cols-4 pada 1024px+ memanfaatkan lebar desktop penuh secara efektif. gap-4 memberikan spacing konsisten di semua breakpoint.
+-->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <!--
+        📊 BAGIAN PEMBELAJARAN STRUKTUR DATA CONTROLLER:
+        rujukan: 03-Basic Routing, Controller, Blade.md (Alur data controller Laravel dan metode collection)
+        PENJELASAN: Variabel books berasal dari method index BookController: books = Book::all(). Ini mengembalikan objek Laravel Collection dengan metode yang kuat:
+        - count(): Mengembalikan total jumlah records
+        - pluck('field'): Mengekstrak nilai field spesifik ke collection baru
+        - unique(): Menghapus nilai duplikat dari collection
+        - max('field'): Mengembalikan nilai tertinggi di field yang ditentukan
+
+        VISUALISASI ALUR DATA:
+        Route (/books) → BookController.index() → Book::all() → Blade View (variabel books) → Display
+    -->
+
+    <!-- Kartu Statistik Utama -->
+    <!--
+        rujukan: 06-UI Component (DaisyUI).md (Komponen Stats untuk visualisasi data - menyediakan styling konsisten untuk tampilan metrik kunci)
+        PENJELASAN: Komponen stats DaisyUI menciptakan kartu data yang menarik secara visual dengan theming warna semantik. Kelas bg-primary dan text-primary-content memastikan kontras yang tepat dan kompatibilitas tema. Shadow-lg menambahkan kedalaman dan pemisahan visual.
+    -->
+    <div class="stat bg-primary text-primary-content rounded-lg">
+        <div class="stat-figure">
+            <!--
+                rujukan: 02-HTML CSS JS.md (Ikon SVG untuk grafik yang dapat diskalakan - grafik vektor yang tetap tajam di semua ukuran)
+                PENJELASAN: Ikon SVG lebih disukai daripada gambar bitmap karena mereka menskalakan dengan sempurna di semua kepadatan layar dan dapat di-styling dengan CSS. Kelas w-8 h-8 memastikan ukuran konsisten sementara currentColor mewarisi warna teks untuk kompatibilitas tema.
+            -->
+            <i class="fas fa-book text-2xl opacity-80"></i>
         </div>
+        <div class="stat-title text-primary-content/80">Total Buku</div>
+        <!--
+            rujukan: 07-Blade Templating.md (Sintaks output data - kurung kurawal ganda untuk output HTML yang aman)
+            PENJELASAN: Sintaks books count dengan aman mengeluarkan jumlah buku dari controller. Laravel secara otomatis meng-escape output ini untuk mencegah serangan XSS. Method count() adalah method Laravel Collection yang mengembalikan total jumlah item.
+        -->
+        <div class="stat-value text-2xl lg:text-3xl">{{ $books->count() }}</div>
+        <div class="stat-desc text-primary-content/60">Dalam koleksi Anda</div>
+    </div>
+
+    <!-- Kartu Statistik Kedua -->
+    <div class="stat bg-secondary text-secondary-content rounded-lg">
+        <div class="stat-figure">
+            <i class="fas fa-users text-2xl opacity-80"></i>
+        </div>
+        <div class="stat-title text-secondary-content/80">Penulis</div>
+        <!--
+            rujukan: 03-Basic Routing, Controller, Blade.md (Method chaining Laravel Collection untuk pemrosesan data)
+            PENJELASAN: Ini mendemonstrasikan operasi Laravel Collection yang kuat:
+            1. pluck('author') - Mengekstrak semua nilai 'author' ke collection baru
+            2. unique() - Menghapus nama penulis duplikat
+            3. count() - Menghitung penulis unik yang tersisa
+            Rantai ini memproses data secara efisien tanpa query database tambahan.
+        -->
+        <div class="stat-value text-2xl lg:text-3xl">{{ $books->pluck('author')->unique()->count() }}</div>
+        <div class="stat-desc text-secondary-content/60">Penulis unik</div>
+    </div>
+
+    <!-- Kartu Statistik Ketiga -->
+    <div class="stat bg-accent text-accent-content rounded-lg">
+        <div class="stat-figure">
+            <i class="fas fa-tags text-2xl opacity-80"></i>
+        </div>
+        <div class="stat-title text-accent-content/80">Genre</div>
+        <div class="stat-value text-2xl lg:text-3xl">{{ $books->pluck('genre')->unique()->count() }}</div>
+        <div class="stat-desc text-accent-content/60">Kategori berbeda</div>
+    </div>
+
+    <!-- Kartu Statistik Keempat -->
+    <div class="stat bg-neutral text-neutral-content rounded-lg">
+        <div class="stat-figure">
+            <i class="fas fa-calendar text-2xl opacity-80"></i>
+        </div>
+        <div class="stat-title text-neutral-content/80">Tahun Terbaru</div>
+        <!--
+            rujukan: 07-Blade Templating.md (Operator null coalescing untuk nilai fallback - mencegah error ketika data mungkin hilang)
+            EXPLANATION: The ?? 'N/A' syntax provides a fallback value when max('publication_year') returns null. This prevents display issues and provides better user experience when data is incomplete.
+        -->
+        <div class="stat-value text-2xl lg:text-3xl">{{ $books->max('publication_year') ?? 'N/A' }}</div>
+        <div class="stat-desc text-neutral-content/60">Most recent publication</div>
+    </div>
+</div>
+
+<!-- Action Buttons with Responsive Layout -->
+<!--
+    refer: 04-responsive-with-tailwind.md (Responsive flexbox patterns for button layouts)
+    EXPLANATION: flex-col stacks buttons vertically on mobile for easy touch interaction. sm:flex-row switches to horizontal layout on larger screens. Gap provides consistent spacing in both orientations.
+-->
+<div class="flex flex-col sm:flex-row gap-4 mb-8">
+    <!--
+        refer: 03-Basic Routing, Controller, Blade.md (Laravel named route helpers for URL generation)
+        EXPLANATION: route('books.create') generates the correct URL for the create book page. This approach is preferred over hardcoded URLs because it automatically updates if route definitions change, making the application more maintainable.
+    -->
+    <a href="{{ route('books.create') }}" class="btn btn-primary">
+        <i class="fas fa-plus mr-2"></i>
+        Tambah Buku Baru
+    </a>
+
+    <!--
+        rujukan: 02-HTML CSS JS.md (Panggilan fungsi JavaScript untuk elemen interaktif)
+        PENJELASAN: Atribut onclick memanggil fungsi JavaScript untuk menampilkan informasi responsif. Ini mendemonstrasikan interaktivitas sisi-client dasar yang meningkatkan pengalaman pembelajaran.
+    -->
+    <button class="btn btn-outline" onclick="showResponsiveInfo()">
+        <i class="fas fa-info-circle mr-2"></i>
+        Tampilkan Breakdown Responsif
+    </button>
+
+    <a href="/films" class="btn btn-warning">
+        <i class="fas fa-arrow-right mr-2"></i>
+        Pergi ke Film (Versi Latihan)
+    </a>
+</div>
+
+<!-- Grid Buku - BAGIAN PEMBELAJARAN RESPONSIF UTAMA -->
+<!--
+    🎯 MASTERCLASS GRID RESPONSIF:
+    rujukan: 04-responsive-with-tailwind.md (Pola grid responsif canggih - pola inti yang harus dikuasai mahasiswa)
+
+    BREAKDOWN KOMPREHENSIF:
+    1. grid-cols-1 (Default/Mobile): Layout kolom tunggal untuk layar di bawah 768px
+       - Mengoptimalkan untuk membaca dan interaksi mobile
+       - Mencegah masalah scrolling horizontal
+       - Memastikan target sentuh yang memadai
+
+    2. md:grid-cols-2 (Tablet pada 768px+): Layout dua kolom untuk layar medium
+       - Memanfaatkan lebar layar tablet secara efektif
+       - Mempertahankan keterbacaan sambil menampilkan lebih banyak konten
+       - Menyeimbangkan kepadatan informasi dengan kegunaan
+
+    3. lg:grid-cols-3 (Desktop pada 1024px+): Layout tiga kolom untuk layar besar
+       - Memanfaatkan real estate layar desktop
+       - Menciptakan alignment grid yang menarik secara visual
+       - Pola standar untuk layout bergaya dashboard
+
+    4. gap-6: Spacing konsisten antara item grid di semua breakpoint
+       - Memberikan pemisahan visual tanpa berlebihan
+       - Skala yang sesuai di berbagai ukuran layar
+       - Menciptakan tampilan profesional dan terorganisir
+
+    PENJELASAN METODOLOGI MOBILE-FIRST:
+    - Mulai dengan lingkungan yang paling terbatas (mobile)
+    - Tingkatkan secara progresif untuk perangkat yang lebih mumpuni
+    - Pastikan fungsionalitas inti bekerja di mana-mana
+    - Tambahkan peningkatan yang memperbaiki pengalaman di layar yang lebih besar
+
+    INSTRUKSI PENGUJIAN:
+    Gunakan mode responsif DevTools browser:
+    - 375px (iPhone): Harus menampilkan 1 kolom
+    - 768px (iPad): Harus menampilkan 2 kolom
+    - 1024px (Desktop): Harus menampilkan 3 kolom
+    - Verifikasi tidak ada overflow horizontal di ukuran manapun
+-->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!--
+        rujukan: 07-Blade Templating.md (Direktif loop foreach untuk iterasi data)
+        PENJELASAN: Direktif foreach melakukan loop melalui setiap buku dalam collection dari controller. Setiap iterasi memberikan akses ke properti buku individual seperti title, author, description, dll. Ini adalah cara utama untuk menampilkan data dinamis dari database dalam view Laravel.
+    -->
+    @foreach($books as $book)
+        <!--
+            refer: 06-UI Component (DaisyUI).md (Advanced card component with hover effects and animations)
+            EXPLANATION: This card demonstrates professional UI patterns:
+            - bg-base-100: Theme-aware background color
+            - shadow-lg: Subtle depth that doesn't overwhelm
+            - hover:shadow-xl: Interactive feedback on mouse over
+            - transition-shadow duration-300: Smooth animation for better UX
+            - border border-base-300: Subtle border that enhances card definition
+        -->
+        <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-base-300">
+            <!-- Card Image/Icon Section -->
+            <!--
+                refer: 06-UI Component (DaisyUI).md (Avatar placeholder component for consistent visual elements)
+                EXPLANATION: When actual book cover images aren't available, placeholders maintain visual consistency. The avatar placeholder creates uniform sizing and styling across all cards while providing visual interest through color and iconography.
+            -->
+            <figure class="px-6 pt-6">
+                <div class="avatar placeholder">
+                    <div class="bg-primary text-primary-content rounded-xl w-16 h-16">
+                        <i class="fas fa-book text-2xl"></i>
+                    </div>
+                </div>
+            </figure>
+
+            <!-- Card Content Body -->
+            <!--
+                refer: 04-responsive-with-tailwind.md (Responsive padding patterns for content spacing)
+                EXPLANATION: p-4 lg:p-6 demonstrates responsive spacing. Compact padding on mobile conserves screen space, while generous padding on desktop creates comfortable reading experience. This pattern should be applied consistently across all content areas.
+            -->
+            <div class="card-body p-4 lg:p-6">
+                <!-- Book Title and Genre -->
+                <!--
+                    refer: 06-UI Component (DaisyUI).md (Card title component with responsive typography)
+                    EXPLANATION: card-title provides semantic meaning and consistent styling. text-base lg:text-lg scales typography appropriately. line-clamp-2 truncates long titles to maintain consistent card heights across the grid.
+                -->
+                <h2 class="card-title text-base lg:text-lg font-bold line-clamp-2">
+                    {{ $book->title }}
+
+                    <!-- Conditional Genre Badge -->
+                    <!--
+                        refer: 07-Blade Templating.md (Conditional rendering with if directive)
+                        EXPLANATION: The if directive only renders content when the condition is true. This prevents empty badges from appearing when book genre data is missing, improving the overall visual presentation.
+                    -->
+                    @if($book->genre)
+                        <!--
+                            refer: 06-UI Component (DaisyUI).md (Badge component for categorical labels)
+                            EXPLANATION: Badges provide visual categorization without overwhelming the design. badge-secondary uses theme colors, badge-sm ensures appropriate sizing for the context.
+                        -->
+                        <div class="badge badge-secondary badge-sm">{{ $book->genre }}</div>
+                    @endif
+                </h2>
+
+                <!-- Author Information -->
+                <!--
+                    refer: 02-HTML CSS JS.md (Flexbox alignment for icon and text combinations)
+                    EXPLANATION: flex items-center creates perfect vertical alignment between icon and text. The pattern is reusable across many UI contexts and provides professional polish to data display.
+                -->
+                <p class="text-sm lg:text-base text-base-content/70 flex items-center mb-2">
+                    <i class="fas fa-user-edit mr-2 text-primary"></i>
+                    <strong>{{ $book->author }}</strong>
+                </p>
+
+                <!-- Publication Year -->
+                @if($book->publication_year)
+                    <p class="text-sm text-base-content/60 flex items-center mb-3">
+                        <i class="fas fa-calendar mr-2 text-accent"></i>
+                        {{ $book->publication_year }}
+                    </p>
+                @endif
+
+                <!-- Book Description -->
+                @if($book->description)
+                    <!--
+                        refer: 02-HTML CSS JS.md (Text truncation techniques for consistent layouts)
+                        EXPLANATION: line-clamp-3 limits description to 3 lines with ellipsis, preventing cards from varying heights while still providing useful information to users.
+                    -->
+                    <p class="text-sm lg:text-base text-base-content/80 line-clamp-3 mb-4">
+                        {{ $book->description }}
+                    </p>
+                @endif
+
+                <!-- Card Action Section -->
+                <!--
+                    refer: 06-UI Component (DaisyUI).md (Card actions component for interactive elements)
+                    EXPLANATION: Card actions provide a consistent location for interactive elements. justify-between spaces elements to opposite ends, creating visual balance and logical grouping of related functions.
+                -->
+                <div class="card-actions justify-between items-center">
+                    <div class="flex items-center space-x-2">
+                        <!--
+                            refer: 06-UI Component (DaisyUI).md (Badge outline variant for secondary information)
+                            EXPLANATION: Badge outline provides visual distinction between primary information (genre) and secondary metadata (added_by) while maintaining design consistency.
+                        -->
+                        <div class="badge badge-outline text-xs">{{ $book->added_by }}</div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex space-x-2">
+                        <!--
+                            refer: 06-UI Component (DaisyUI).md (Button size variants and responsive text)
+                            EXPLANATION: btn-sm creates compact buttons appropriate for card contexts. hidden sm:inline pattern shows full text on larger screens while maintaining icon-only buttons on mobile for space efficiency.
+                        -->
+                        <button class="btn btn-sm btn-primary">
+                            <i class="fas fa-eye"></i>
+                            <span class="hidden sm:inline ml-1">Lihat</span>
+                        </button>
+                        <button class="btn btn-sm btn-outline">
+                            <i class="fas fa-edit"></i>
+                            <span class="hidden sm:inline ml-1">Edit</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+
+<!-- Empty State Design -->
+<!--
+    refer: 09-First View Page.md (User experience design for empty states)
+    EXPLANATION: Empty states are crucial for good UX. When no data exists, users need clear guidance on what to do next. This pattern provides visual interest, explains the situation, and offers a clear call-to-action to resolve the empty state.
+-->
+@if($books->count() === 0)
+    <div class="text-center py-16">
+        <i class="fas fa-book text-6xl text-base-content/30 mb-4"></i>
+        <h3 class="text-xl font-bold text-base-content/70 mb-2">No Books Found</h3>
+        <p class="text-base-content/50 mb-6">Start building your collection!</p>
+        <a href="{{ route('books.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus mr-2"></i>
+            Add Your First Book
+        </a>
     </div>
 @endif
 
-@if(session('error'))
-    <div class="fixed top-4 right-4 z-50">
-        <div class="bg-white border border-red-200 text-red-800 px-4 py-3 rounded-lg shadow-lg flex items-center gap-3">
-            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <span class="font-medium">{{ session('error') }}</span>
+<!-- Responsive Learning Modal -->
+<!--
+    refer: 06-UI Component (DaisyUI).md (Modal component for detailed information display)
+    EXPLANATION: Modals provide space for detailed explanations without cluttering the main interface. This educational modal helps students understand the responsive patterns implemented in this page.
+-->
+<dialog id="responsive_modal" class="modal">
+    <div class="modal-box max-w-4xl">
+        <h3 class="font-bold text-lg mb-4">📱 Breakdown Desain Responsif - Halaman Buku</h3>
+
+        <!-- Kartu Penjelasan Responsif -->
+        <div class="space-y-4">
+            <!-- Penjelasan Layout Mobile -->
+            <div class="card bg-base-200">
+                <div class="card-body">
+                    <h4 class="font-bold text-primary">📱 Layout Mobile (< 768px)</h4>
+                    <!--
+                        rujukan: 04-responsive-with-tailwind.md (Prinsip desain mobile-first)
+                        PENJELASAN: Layout mobile memprioritaskan aksesibilitas konten dan interaksi sentuh. Kolom tunggal mencegah scrolling horizontal, target sentuh yang lebih besar meningkatkan kegunaan, dan layout yang disederhanakan mengurangi beban kognitif pada layar kecil.
+                    -->
+                    <ul class="text-sm space-y-1">
+                        <li>• <code>grid-cols-1</code> - Kolom tunggal mencegah scrolling horizontal</li>
+                        <li>• <code>text-2xl</code> - Ukuran heading yang sesuai untuk pembacaan mobile</li>
+                        <li>• <code>p-4</code> - Padding kompak menghemat ruang layar</li>
+                        <li>• <code>gap-6</code> - Spacing yang memadai untuk interaksi sentuh</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Penjelasan Layout Tablet -->
+            <div class="card bg-base-200">
+                <div class="card-body">
+                    <h4 class="font-bold text-secondary">📱 Layout Tablet (768px - 1023px)</h4>
+                    <!--
+                        rujukan: 04-responsive-with-tailwind.md (Optimasi breakpoint tablet)
+                        PENJELASAN: Layout tablet menyeimbangkan kepadatan konten dengan keterbacaan. Dua kolom memanfaatkan lebar yang tersedia sambil mempertahankan konsumsi konten yang nyaman. Breakpoint ini sering kali merepresentasikan sweet spot antara pengalaman mobile dan desktop.
+                    -->
+                    <ul class="text-sm space-y-1">
+                        <li>• <code>md:grid-cols-2</code> - Dua kolom memanfaatkan lebar tablet secara efektif</li>
+                        <li>• <code>sm:flex-row</code> - Layout tombol horizontal di mana ruang memungkinkan</li>
+                        <li>• <code>hidden sm:inline</code> - Pengungkapan teks progresif untuk label tombol</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Penjelasan Layout Desktop -->
+            <div class="card bg-base-200">
+                <div class="card-body">
+                    <h4 class="font-bold text-accent">🖥️ Layout Desktop (1024px+)</h4>
+                    <!--
+                        rujukan: 04-responsive-with-tailwind.md (Pola optimasi desktop)
+                        PENJELASAN: Layout desktop memaksimalkan real estate layar yang tersedia sambil mempertahankan hierarki visual. Tiga kolom menciptakan pola scanning konten yang efisien, spacing murah hati meningkatkan kenyamanan visual, dan tipografi yang lebih besar memanfaatkan jarak pandang.
+                    -->
+                    <ul class="text-sm space-y-1">
+                        <li>• <code>lg:grid-cols-3</code> - Tiga kolom memaksimalkan penggunaan layar desktop</li>
+                        <li>• <code>lg:text-4xl</code> - Tipografi besar yang sesuai untuk tampilan desktop</li>
+                        <li>• <code>lg:p-6</code> - Padding murah hati menciptakan pengalaman membaca yang nyaman</li>
+                        <li>• <code>lg:text-lg</code> - Keterbacaan yang ditingkatkan dengan teks body yang lebih besar</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="modal-action">
+            <button class="btn" onclick="document.getElementById('responsive_modal').close()">Tutup</button>
         </div>
     </div>
-@endif
+</dialog>
 
+<!-- JAVASCRIPT PEMBELAJARAN SISI-CLIENT -->
+<!--
+    📜 BAGIAN PEMBELAJARAN JAVASCRIPT:
+    rujukan: 02-HTML CSS JS.md (Interaktivitas sisi-client untuk pengalaman pengguna yang ditingkatkan)
+    rujukan: 10-Events & Livewire.md (Penanganan event JavaScript dan manipulasi DOM)
+
+    PENJELASAN INTERAKTIVITAS:
+    JavaScript ini menyediakan fitur edukatif yang membantu mahasiswa memahami perilaku responsif secara real-time. Ini mendemonstrasikan:
+    1. Manipulasi DOM untuk pembaruan konten dinamis
+    2. Penanganan event untuk interaksi pengguna
+    3. Console logging untuk debugging dan pembelajaran
+    4. Deteksi dan pelaporan breakpoint responsif
+-->
 <script>
-// Auto-hide toast messages
-document.addEventListener('DOMContentLoaded', function() {
-    const toasts = document.querySelectorAll('.fixed .bg-white');
-    toasts.forEach(toast => {
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.transform = 'translateX(100%)';
-            setTimeout(() => toast.remove(), 300);
-        }, 4000);
-    });
-});
+// Fungsi Modal Informasi Responsif
+// rujukan: 02-HTML CSS JS.md (Definisi fungsi dan pemilihan elemen DOM)
+// PENJELASAN: Fungsi ini mendemonstrasikan manipulasi DOM dasar dengan menampilkan dialog modal. Ini dipicu oleh klik tombol dan memberikan informasi edukatif tentang pola desain responsif yang digunakan di halaman ini.
+function showResponsiveInfo() {
+    document.getElementById('responsive_modal').showModal();
+}
 
-// Add subtle loading states
-document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', function(e) {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        if (submitBtn) {
-            submitBtn.style.opacity = '0.7';
-            submitBtn.disabled = true;
-        }
-    });
-});
+// Logger Breakpoint Responsif untuk Pembelajaran
+// rujukan: 04-responsive-with-tailwind.md (Deteksi breakpoint untuk tujuan edukatif)
+// PENJELASAN: Fungsi ini membantu mahasiswa memahami breakpoint responsif mana yang sedang aktif dengan mencatat informasi ke console browser. Ini adalah alat edukatif yang membuat perilaku responsif terlihat selama pengembangan dan pengujian.
+function logCurrentLayout() {
+    const width = window.innerWidth;
+    let columns = 1;
+    let breakpoint = 'Mobile';
+
+    if (width >= 1024) {
+        columns = 3;
+        breakpoint = 'Desktop (lg)';
+    } else if (width >= 768) {
+        columns = 2;
+        breakpoint = 'Tablet (md)';
+    }
+
+    console.log(`📚 Grid Buku: ${columns} kolom pada ${width}px (${breakpoint})`);
+    console.log(`💡 Tips Pembelajaran: Ubah ukuran window browser untuk melihat perubahan responsif!`);
+}
+
+// Event Listeners untuk Umpan Balik Edukatif
+// rujukan: 02-HTML CSS JS.md (Penanganan event untuk monitoring perilaku responsif)
+// PENJELASAN: Event listener resize memberikan umpan balik real-time saat mahasiswa menguji perilaku responsif. Umpan balik langsung ini membantu mahasiswa memahami cara kerja breakpoint dan kapan layout berubah.
+window.addEventListener('resize', logCurrentLayout);
+logCurrentLayout(); // Log keadaan awal ketika halaman dimuat
+
+// Pesan Console Edukatif
+// rujukan: 02-HTML CSS JS.md (Console logging untuk panduan pengembangan)
+// PENJELASAN: Pesan console ini memberikan panduan dan tips untuk mahasiswa yang belajar desain responsif. Mereka muncul secara otomatis ketika halaman dimuat dan memandu mahasiswa menuju aktivitas pembelajaran yang produktif.
+console.log('🎓 MODUL PEMBELAJARAN FRONTEND');
+console.log('📱 Buka DevTools dan ubah ukuran browser untuk melihat breakpoint responsif beraksi!');
+console.log('🔧 Gunakan Mode Desain Responsif (Ctrl+Shift+M) untuk menguji berbagai ukuran layar');
+console.log('📚 Pelajari halaman Buku ini, lalu berlatih dengan latihan halaman Film');
 </script>
 @endsection
